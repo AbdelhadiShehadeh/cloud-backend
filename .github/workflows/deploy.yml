@@ -8,6 +8,10 @@ on:
       - 'README.md'
       - '.gitignore'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-push:
     name: Build and Push Docker Image
@@ -42,14 +46,14 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t ghcr.io/${{ steps.owner.outputs.value }}/url-shortener-backend:latest \
-            -t ghcr.io/${{ steps.owner.outputs.value }}/url-shortener-backend:${{ github.sha }} \
+            -t ghcr.io/${{ steps.owner.outputs.value }}/cloud-backend:latest \
+            -t ghcr.io/${{ steps.owner.outputs.value }}/cloud-backend:${{ github.sha }} \
             .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ steps.owner.outputs.value }}/url-shortener-backend:latest
-          docker push ghcr.io/${{ steps.owner.outputs.value }}/url-shortener-backend:${{ github.sha }}
+          docker push ghcr.io/${{ steps.owner.outputs.value }}/cloud-backend:latest
+          docker push ghcr.io/${{ steps.owner.outputs.value }}/cloud-backend:${{ github.sha }}
 
   deploy:
     name: Deploy to Digital Ocean
