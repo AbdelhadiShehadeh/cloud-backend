@@ -30,8 +30,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
-      # GHCR requires the image name to be fully lowercase.
-      # github.repository_owner can contain uppercase letters, so we normalize it here.
       - name: Set lowercase owner
         id: owner
         run: echo "value=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
